@@ -1,12 +1,11 @@
 type AddFormProps = {
-  isVisible: boolean;
-  addButtonHandler: () => void;
+  onToggleAddButton: () => void;
 }
 
-export default function AddForm({ isVisible, addButtonHandler }: AddFormProps) {
+export default function AddForm({ onToggleAddButton }: AddFormProps) {
   return (
     <>
-      <div className={"add-form" + (isVisible ? " visible" : "")}>
+      <div className="add-form">
         <form>
           <div className="input-group">
             <label htmlFor="product-name">Product Name:</label>
@@ -40,7 +39,7 @@ export default function AddForm({ isVisible, addButtonHandler }: AddFormProps) {
           </div>
           <div className="actions form-actions">
             <button type="submit">Add</button>
-            <button type="button" onClick={addButtonHandler}>Cancel</button>
+            <button type="button" onClick={onToggleAddButton}>Cancel</button>
           </div>
         </form>
       </div>
