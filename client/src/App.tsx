@@ -2,6 +2,7 @@
 import './public/stylesheets/main.css'
 import ProductList from './components/ProductList'
 import AddForm from './components/AddForm'
+import Header from './components/Header'
 import { useState } from 'react';
 
 
@@ -16,15 +17,7 @@ function App() {
   return (
     <>
       <div id="app">
-        <header>
-          <h1>The Shop!</h1>
-          <div className="cart">
-            <h2>Your Cart</h2>
-            <p>Your cart is empty</p>
-            <p>Total: $0</p>
-            <button className="checkout" disabled>Checkout</button>
-          </div>
-        </header>
+        <Header />
 
         <main>
           <ProductList />
