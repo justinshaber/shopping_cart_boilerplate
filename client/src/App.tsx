@@ -1,4 +1,3 @@
-// import { useState } from 'react'
 import './public/stylesheets/main.css'
 import ProductList from './components/ProductList'
 import AddForm from './components/AddForm'
