@@ -1,3 +1,5 @@
+import CartItems from './CartItems'
+
 export default function Header() {
   return (
     <>
@@ -5,8 +7,7 @@ export default function Header() {
         <h1>The Shop!</h1>
         <div className="cart">
           <h2>Your Cart</h2>
-          <p>Your cart is empty</p>
-          <p>Total: $0</p>
+          <CartItems />
           <button className="checkout" disabled>Checkout</button>
         </div>
       </header>
