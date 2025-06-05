@@ -2,10 +2,10 @@ import type { Product } from '../types'
 
 interface EditProductFormProps {
   product: Product;
-  onToggleEditForm: () => void;
+  onCloseEditForm: () => void;
 }
 
-export default function EditProductForm({ product: {title, price, quantity}, onToggleEditForm }: EditProductFormProps) {
+export default function EditProductForm({ product: {title, price, quantity}, onCloseEditForm }: EditProductFormProps) {
   return (
     <form>
       <div className="input-group">
@@ -40,7 +40,7 @@ export default function EditProductForm({ product: {title, price, quantity}, onT
 
       <div className="actions form-actions">
         <button type="submit">Update</button>
-        <button type="button" onClick={onToggleEditForm}>Cancel</button>
+        <button type="button" onClick={onCloseEditForm}>Cancel</button>
       </div>
     </form>
   )

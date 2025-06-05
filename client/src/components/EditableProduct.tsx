@@ -8,32 +8,16 @@ interface EditableProductProps {
 }
 
 export default function EditableProduct({ product }: EditableProductProps) {
-  const [toggleEditForm, setToggleEditForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
 
-  const handleToggleEditForm = () => {
-    setToggleEditForm(!toggleEditForm);
+  const handleShowEditForm = () => {
+    setShowEditForm(!showEditForm);
   }
 
   return (
     <>
-      <ProductDetails product={product} onToggleEditForm={handleToggleEditForm} showEditButton={!toggleEditForm}/>
-      {toggleEditForm && <EditProductForm product={product} onToggleEditForm={handleToggleEditForm}/>}
+      <ProductDetails product={product} onShowEditForm={handleShowEditForm} showEditButton={!showEditForm}/>
+      {showEditForm && <EditProductForm product={product} onCloseEditForm={handleShowEditForm}/>}
     </>
   )
 }
-
-/*
-
-Editable Product
-  toggle functionality
-
-  ProductDetails
-    Edit Button -> should toggle edit form on
-  EditProductForm
-    Cancel Button -> should toggle edit form off
-
-
-Pass down the toggle button to ProductDetails and EditProductForm
-  In children - include it as a prop
-    ...where? in types? Or in prop types?
-*/

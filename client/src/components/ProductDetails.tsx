@@ -2,11 +2,11 @@ import type { Product } from '../types'
 
 interface ProductDetailsProps {
   product: Product;
-  onToggleEditForm: () => void;
+  onShowEditForm: () => void;
   showEditButton: boolean;
 }
 
-export default function ProductDetails({product: {title, price, quantity}, onToggleEditForm, showEditButton }: ProductDetailsProps) {
+export default function ProductDetails({product: {title, price, quantity}, onShowEditForm, showEditButton }: ProductDetailsProps) {
   return (
     <>
       <li className="product">
@@ -16,7 +16,7 @@ export default function ProductDetails({product: {title, price, quantity}, onTog
           <p className="quantity">{quantity} left in stock</p>
           <div className="actions product-actions">
             <button className="add-to-cart">Add to Cart</button>
-            {showEditButton && <button className="edit" onClick={onToggleEditForm}>Edit</button>}
+            {showEditButton && <button className="edit" onClick={onShowEditForm}>Edit</button>}
           </div>
           <button className="delete-button"><span>X</span></button>
         </div>
