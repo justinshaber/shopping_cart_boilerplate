@@ -1,20 +1,23 @@
-type ProductProps = {
-  name: string;
-  price: number;
-  quantity: number;
-}
+import type { Product } from '../types'
+import { useState } from 'react'
 
-export default function Product({name, price, quantity}: ProductProps) {
+export default function ProductDetails({title, price, quantity}: Product) {
+  const [showEditForm, setShowEditForm] = useState(false);
+  
+  function handleToggleEditForm() {
+    setShowEditForm(!showEditForm);
+  }
+
   return (
     <>
       <li className="product">
         <div className="product-details">
-          <h3>{name}</h3>
+          <h3>{title}</h3>
           <p className="price">${price}</p>
           <p className="quantity">{quantity} left in stock</p>
           <div className="actions product-actions">
             <button className="add-to-cart">Add to Cart</button>
-            <button className="edit">Edit</button>
+            <button className="edit" onClick={handleToggleEditForm}>Edit</button>
           </div>
           <button className="delete-button"><span>X</span></button>
         </div>

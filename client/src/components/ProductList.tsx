@@ -1,5 +1,4 @@
-import Product from './Product'
-import ProductWithEditForm from './ProductWithEditForm'
+import EditableProduct from './EditableProduct'
 
 const mockProducts = [
   {
@@ -28,9 +27,9 @@ const mockProducts = [
   },
 ];
 
-export default function ProductList() {
+export default function ProductList() {  
   const productArray = mockProducts.map(product => {
-    return <Product name={product.title} price={product.price} quantity={product.quantity}/>
+    return <EditableProduct product={product}/>
   });
 
   return (
@@ -38,7 +37,6 @@ export default function ProductList() {
       <div className="product-listing">
         <h2>Products</h2>
         <ul className="product-list">
-          <ProductWithEditForm name="Garmin" price={29.99} quantity={4}/>
           {productArray}
         </ul>
       </div>

@@ -2,7 +2,7 @@ import './public/stylesheets/main.css'
 import ProductList from './components/ProductList'
 import AddForm from './components/AddForm'
 import Header from './components/Header'
-import { useState } from 'react';
+import { useState } from 'react'
 
 
 
