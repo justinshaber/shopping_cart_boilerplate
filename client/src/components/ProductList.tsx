@@ -27,7 +27,7 @@ const mockProducts = [
   },
 ];
 
-export default function ProductList() {  
+export default function ProductList() {
   const productArray = mockProducts.map(product => {
     return <EditableProduct product={product}/>
   });

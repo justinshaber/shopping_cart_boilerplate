@@ -1,13 +1,12 @@
 import type { Product } from '../types'
-import { useState } from 'react'
 
-export default function ProductDetails({title, price, quantity}: Product) {
-  const [showEditForm, setShowEditForm] = useState(false);
-  
-  function handleToggleEditForm() {
-    setShowEditForm(!showEditForm);
-  }
+interface ProductDetailsProps {
+  product: Product;
+  onToggleEditForm: () => void;
+  showEditButton: boolean;
+}
 
+export default function ProductDetails({product: {title, price, quantity}, onToggleEditForm, showEditButton }: ProductDetailsProps) {
   return (
     <>
       <li className="product">
@@ -17,7 +16,7 @@ export default function ProductDetails({title, price, quantity}: Product) {
           <p className="quantity">{quantity} left in stock</p>
           <div className="actions product-actions">
             <button className="add-to-cart">Add to Cart</button>
-            <button className="edit" onClick={handleToggleEditForm}>Edit</button>
+            {showEditButton && <button className="edit" onClick={onToggleEditForm}>Edit</button>}
           </div>
           <button className="delete-button"><span>X</span></button>
         </div>
