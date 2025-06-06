@@ -12,7 +12,7 @@ export interface CartItem extends Product {
 }
 
 // my solution so far
-export interface cart {
+export interface Cart {
   id: string;
   items: Product[];
 }

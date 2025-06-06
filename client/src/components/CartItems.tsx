@@ -1,36 +1,34 @@
-const mockItems = [
-  {
-    _id: "a1",
-    productId: "1",
-    title: "Amazon Kindle E-reader",
-    quantity: 1,
-    price: 79.99,
-  },
-  {
-    _id: "a2",
-    productId: "2",
-    title: "Apple 10.5-Inch iPad Pro",
-    quantity: 3,
-    price: 649.99,
-  },
-]
+import type { CartItem } from '../types'
 
-export default function CartItems() {
-  const itemsList = mockItems.map(item => {
-    return (
+type CartItemsProps = {
+  cart: CartItem[]
+}
+
+function CartItemDetails({ title, quantity, price }: CartItem) {
+  return (
+    <>
       <tr>
-        <td>{item.title}</td>
-        <td>{item.quantity}</td>
-        <td>{item.price}</td>
+        <td>{title}</td>
+        <td>{quantity}</td>
+        <td>{price}</td>
       </tr>
+    </>
+  )
+}
+
+export default function CartItems({ cart }: CartItemsProps) {
+  const itemsList = cart.map(item => {
+    return (
+      <CartItemDetails key={item._id} {...item} />
     )}
   );
 
-  const cartTotal = mockItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+  const cartTotal = Number(cart.reduce((acc, item) => acc + (item.price * item.quantity), 0)).toFixed(2);
 
   return (
     <>
-      {mockItems.length === 0  ? 
+      {
+        cart.length === 0  ? 
         (
           <div>
             <p>Your cart is empty</p>
