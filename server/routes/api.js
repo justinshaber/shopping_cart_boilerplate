@@ -128,7 +128,6 @@ router.put("/products/:id", (req, res) => {
 });
 
 // doing now
-// friday
 router.delete("/products/:id", (req, res, next) => {
   const productId = req.params.id;
   Product.findByIdAndRemove(productId)
