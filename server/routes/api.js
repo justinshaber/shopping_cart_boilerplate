@@ -107,7 +107,6 @@ router.post("/products", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-// 
 router.put("/products/:id", (req, res) => {
   const productId = req.params.id;
   const { title, price, quantity } = req.body;
@@ -128,6 +127,7 @@ router.put("/products/:id", (req, res) => {
     });
 });
 
+// doing now
 router.delete("/products/:id", (req, res, next) => {
   const productId = req.params.id;
   Product.findByIdAndRemove(productId)
