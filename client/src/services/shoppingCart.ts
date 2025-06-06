@@ -41,3 +41,15 @@ export const createProduct = async (newProduct: NewProduct) => {
     throw err;
   }
 }
+
+/*
+Zod cart
+edit product
+  zod edit product
+delete product
+  zod delete
+add to cart
+  zod add to cart
+cart checkout
+  zod checkout
+*/
