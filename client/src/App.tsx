@@ -4,7 +4,6 @@ import AddForm from './components/AddForm'
 import Header from './components/Header'
 import { useState, useEffect } from 'react'
 import type { CartItem, Product } from './types.ts'
-import { mockProducts, mockCart } from './data.ts'
 import axios from 'axios'
 
 function App() {
@@ -23,6 +22,19 @@ function App() {
     }
 
     fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const response = await axios.get<CartItem[]>('/api/cart');
+        setCart(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    fetchCart();
   }, []);
 
   function handleToggleAddButton() {

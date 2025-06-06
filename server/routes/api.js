@@ -92,12 +92,14 @@ const router = express.Router();
 const Product = require("../models/product");
 const CartItem = require("../models/cartItem");
 
+// done
 router.get("/products", (req, res, next) => {
   Product.find({})
     .then((products) => res.json(products))
     .catch(next);
 });
 
+// doing now
 router.post("/products", (req, res, next) => {
   const { title, price, quantity } = req.body;
   Product.create({ title, price, quantity })
@@ -188,6 +190,7 @@ router.post("/checkout", (req, res) => {
   });
 });
 
+// done
 router.get("/cart", (req, res, next) => {
   CartItem.find({})
     .then((cartItems) => {
