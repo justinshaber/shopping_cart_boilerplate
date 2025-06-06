@@ -5,8 +5,7 @@ import Header from './components/Header'
 import { useState, useEffect } from 'react'
 import type { CartItem, Product } from './types.ts'
 import { mockProducts, mockCart } from './data.ts'
-
-
+import axios from 'axios'
 
 function App() {
   const [showAddButton, setShowAddButton] = useState(true);
@@ -14,8 +13,16 @@ function App() {
   const [cart, setCart] = useState<CartItem[]>([]);
 
   useEffect(() => {
-    setProducts(mockProducts);
-    setCart(mockCart);
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get<Product[]>('/api/products');
+        setProducts(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    fetchProducts();
   }, []);
 
   function handleToggleAddButton() {
