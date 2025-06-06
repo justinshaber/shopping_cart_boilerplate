@@ -5,6 +5,8 @@ export interface Product {
   price: number;
 }
 
+export type NewProduct = Omit<Product, "_id">;
+
 // This is how the solution writes it, but I don't understand.
 // I think this means now that the _id in the Product Interface now becomes the _id for CartItem
 export interface CartItem extends Product {

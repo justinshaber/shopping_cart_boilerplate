@@ -3,8 +3,9 @@ import ProductList from './components/ProductList'
 import AddForm from './components/AddForm'
 import Header from './components/Header'
 import { useState, useEffect } from 'react'
-import type { CartItem, Product } from './types.ts'
-import axios from 'axios'
+import type { CartItem, Product, NewProduct } from './types.ts'
+import { createProduct, getCart, getProducts } from './services/shoppingCart.ts'
+
 
 function App() {
   const [showAddButton, setShowAddButton] = useState(true);
@@ -14,10 +15,10 @@ function App() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get<Product[]>('/api/products');
-        setProducts(response.data);
+        const data = await getProducts();
+        setProducts(data);
       } catch (err) {
-        console.error(err);
+        console.log(err);
       }
     }
 
@@ -27,18 +28,30 @@ function App() {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const response = await axios.get<CartItem[]>('/api/cart');
-        setCart(response.data);
+        const data = await getCart();
+        setCart(data);
       } catch (err) {
-        console.error(err);
+        console.log(err);
       }
     }
 
     fetchCart();
   }, []);
 
-  function handleToggleAddButton() {
+  const handleToggleAddButton = () => {
     setShowAddButton(!showAddButton);
+  }
+
+  const handleSubmitProduct = async (newProduct: NewProduct, callback?: () => void) => {
+    try {
+      const data = await createProduct(newProduct);
+      setProducts(prev => prev.concat(data));
+      if (callback) {
+        callback();
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
@@ -54,7 +67,7 @@ function App() {
                 Add A Product
               </button>
             </p>) : 
-            (<AddForm onToggleAddButton={handleToggleAddButton}/>)
+            (<AddForm onToggleAddButton={handleToggleAddButton} onSubmitProduct={handleSubmitProduct}/>)
           }
         </main>
       </div>
@@ -63,3 +76,12 @@ function App() {
 }
 
 export default App
+
+
+/*
+  Zod - validate form data
+  All inputs should be controlled - react decides what the values should be, not the DOM
+
+  Define state of each form value
+
+*/

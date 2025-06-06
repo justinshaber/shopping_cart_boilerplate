@@ -1,18 +1,39 @@
+import { useState } from 'react';
+import type { NewProduct } from '../types';
+
 type AddFormProps = {
   onToggleAddButton: () => void;
+  onSubmitProduct: (newProduct: NewProduct, reset?: () => void) => Promise<void>;
 }
 
-export default function AddForm({ onToggleAddButton }: AddFormProps) {
+export default function AddForm({ onToggleAddButton, onSubmitProduct }: AddFormProps) {
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
+
+  const handleReset = () => {
+    setTitle("");
+    setPrice("");
+    setQuantity("");
+  }
+
+  const handleSubmitProduct = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    onSubmitProduct({title, price: Number(price), quantity: Number(quantity)}, handleReset);
+  }
+
   return (
     <>
       <div className="add-form">
-        <form>
+        <form onSubmit={handleSubmitProduct}>
           <div className="input-group">
             <label htmlFor="product-name">Product Name:</label>
             <input
               type="text"
               id="product-name"
               name="product-name"
+              value={title}
+              onChange={e => setTitle(e.target.value)}
               required
             />
           </div>
@@ -24,6 +45,8 @@ export default function AddForm({ onToggleAddButton }: AddFormProps) {
               name="product-price"
               min="0"
               step="0.01"
+              value={price}
+              onChange={e => setPrice(e.target.value)}
               required
             />
           </div>
@@ -34,6 +57,8 @@ export default function AddForm({ onToggleAddButton }: AddFormProps) {
               id="product-quantity"
               name="product-quantity"
               min="0"
+              value={quantity}
+              onChange={e => setQuantity(e.target.value)}
               required
             />
           </div>

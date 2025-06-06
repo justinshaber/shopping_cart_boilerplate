@@ -99,7 +99,7 @@ router.get("/products", (req, res, next) => {
     .catch(next);
 });
 
-// doing now
+// done
 router.post("/products", (req, res, next) => {
   const { title, price, quantity } = req.body;
   Product.create({ title, price, quantity })
