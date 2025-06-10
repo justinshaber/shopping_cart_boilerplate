@@ -1,7 +1,7 @@
 import './public/stylesheets/main.css'
 import ProductList from './components/ProductList'
-import AddForm from './components/AddForm'
 import Header from './components/Header'
+import ToggleableAddForm from './components/ToggleableAddForm.tsx'
 import { useState, useEffect } from 'react'
 import type { CartItem, Product, NewProduct } from './types.ts'
 import { 
@@ -13,7 +13,6 @@ import {
 
 
 function App() {
-  const [showAddButton, setShowAddButton] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
   const [cart, setCart] = useState<CartItem[]>([]);
 
@@ -43,10 +42,6 @@ function App() {
     fetchCart();
   }, []);
 
-  const handleToggleAddButton = () => {
-    setShowAddButton(!showAddButton);
-  }
-
   // a reset function (resetting form values to empty) is passed as a callback that is invoked only when a product is created. If a product isn't added successfully, the form value isn't reset.
   const handleSubmitProduct = async (newProduct: NewProduct, callback?: () => void) => {
     try {
@@ -73,17 +68,9 @@ function App() {
     <>
       <div id="app">
         <Header cart={cart}/>
-
         <main>
           <ProductList products={products} onDeleteProduct={handleDeleteProduct}/>
-          {showAddButton ? 
-            (<p>
-              <button className="add-product-button" onClick={handleToggleAddButton}>
-                Add A Product
-              </button>
-            </p>) : 
-            (<AddForm onToggleAddButton={handleToggleAddButton} onSubmitProduct={handleSubmitProduct}/>)
-          }
+          <ToggleableAddForm onSubmitProduct={handleSubmitProduct}/>
         </main>
       </div>
     </>
