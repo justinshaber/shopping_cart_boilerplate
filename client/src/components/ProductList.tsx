@@ -3,11 +3,12 @@ import type { Product } from '../types'
 
 type ProductListProps = {
   products: Product[];
+  onDeleteProduct: (productId: string) => void;
 }
 
-export default function ProductList({ products }: ProductListProps) {
+export default function ProductList({ products, onDeleteProduct }: ProductListProps) {
   const productArray = products.map(product => {
-    return <EditableProduct key={product._id} product={product}/>
+    return <EditableProduct key={product._id} product={product} onDeleteProduct={onDeleteProduct}/>
   });
 
   return (

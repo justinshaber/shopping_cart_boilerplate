@@ -3,10 +3,22 @@ import type { Product } from '../types'
 interface ProductDetailsProps {
   product: Product;
   onShowEditForm: () => void;
+  onDeleteProduct: (productId: string) => void;
   showEditButton: boolean;
 }
 
-export default function ProductDetails({product: {title, price, quantity}, onShowEditForm, showEditButton }: ProductDetailsProps) {
+export default function ProductDetails(
+  {
+    product: {_id, title, price, quantity}, 
+    onShowEditForm,
+    onDeleteProduct, 
+    showEditButton 
+  }: ProductDetailsProps) {
+
+  const handleDeleteProduct = () => {
+    onDeleteProduct(_id);
+  }
+
   return (
     <>
       <li className="product">
@@ -18,7 +30,7 @@ export default function ProductDetails({product: {title, price, quantity}, onSho
             <button className="add-to-cart">Add to Cart</button>
             {showEditButton && <button className="edit" onClick={onShowEditForm}>Edit</button>}
           </div>
-          <button className="delete-button"><span>X</span></button>
+          <button className="delete-button" onClick={handleDeleteProduct}><span>X</span></button>
         </div>
       </li>
     </>

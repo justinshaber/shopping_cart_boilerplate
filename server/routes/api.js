@@ -127,10 +127,10 @@ router.put("/products/:id", (req, res) => {
     });
 });
 
-// doing now
+// done
 router.delete("/products/:id", (req, res, next) => {
   const productId = req.params.id;
-  Product.findByIdAndRemove(productId)
+  Product.findByIdAndDelete(productId)
     .then(() => {
       res.json();
     })

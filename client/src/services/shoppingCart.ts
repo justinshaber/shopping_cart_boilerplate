@@ -42,12 +42,23 @@ export const createProduct = async (newProduct: NewProduct) => {
   }
 }
 
+export const deleteProduct = async (productId: String) => {
+  try {
+    await axios.delete(`/api/products/${productId}`);
+    return null;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+
 /*
 Zod cart
 edit product
   zod edit product
 delete product
-  zod delete
+  zod delete - not necessary because there is no runtime input data to enforce
 add to cart
   zod add to cart
 cart checkout

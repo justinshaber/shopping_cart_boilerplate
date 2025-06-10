@@ -5,9 +5,10 @@ import { useState } from 'react'
 
 interface EditableProductProps {
   product: Product;
+  onDeleteProduct: (productId: string) => void;
 }
 
-export default function EditableProduct({ product }: EditableProductProps) {
+export default function EditableProduct({ product, onDeleteProduct }: EditableProductProps) {
   const [showEditForm, setShowEditForm] = useState(false);
 
   const handleShowEditForm = () => {
@@ -16,7 +17,12 @@ export default function EditableProduct({ product }: EditableProductProps) {
 
   return (
     <>
-      <ProductDetails product={product} onShowEditForm={handleShowEditForm} showEditButton={!showEditForm}/>
+      <ProductDetails 
+        product={product}
+        onShowEditForm={handleShowEditForm}
+        showEditButton={!showEditForm}
+        onDeleteProduct={onDeleteProduct}
+      />
       {showEditForm && <EditProductForm product={product} onCloseEditForm={handleShowEditForm}/>}
     </>
   )
