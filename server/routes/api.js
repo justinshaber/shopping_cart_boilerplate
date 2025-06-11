@@ -187,7 +187,7 @@ router.post("/add-to-cart", (req, res, next) => {
     });
 });
 
-// need to do - checkout
+// doing now - checkout
 router.post("/checkout", (req, res) => {
   CartItem.deleteMany({}).then(() => {
     res.json();

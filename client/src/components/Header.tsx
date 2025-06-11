@@ -2,10 +2,15 @@ import CartItems from './CartItems'
 import type { CartItem } from '../types'
 
 type HeaderProps = {
-  cart: CartItem[]
+  cart: CartItem[];
+  onCheckout: () => void;
 }
 
-export default function Header({ cart }: HeaderProps) {
+export default function Header({ cart, onCheckout }: HeaderProps) {
+
+  const handleCheckout = () => { onCheckout(); }
+  const handleDisable = () => { return cart.length === 0; }
+
   return (
     <>
       <header>
@@ -13,7 +18,7 @@ export default function Header({ cart }: HeaderProps) {
         <div className="cart">
           <h2>Your Cart</h2>
           <CartItems cart={cart}/>
-          <button className="checkout" disabled>Checkout</button>
+          <button className="checkout" onClick={handleCheckout} disabled={handleDisable()}>Checkout</button>
         </div>
       </header>
     </>

@@ -33,7 +33,7 @@ export default function ProductDetails(
           <p className="price">${price}</p>
           <p className="quantity">{quantity} left in stock</p>
           <div className="actions product-actions">
-            <button className="add-to-cart" onClick={handleAddToCart}>Add to Cart</button>
+            <button className="add-to-cart" onClick={handleAddToCart} disabled={quantity === 0}>Add to Cart</button>
             {showEditButton && <button className="edit" onClick={onShowEditForm}>Edit</button>}
           </div>
           <button className="delete-button" onClick={handleDeleteProduct}><span>X</span></button>

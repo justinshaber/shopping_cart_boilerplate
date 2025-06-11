@@ -81,13 +81,20 @@ export const addToCart = async (productId: string) => {
   }
 }
 
+export const checkout = async () => {
+  try {
+    await axios.post(`/api/checkout`);
+    return null;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
 /*
 Zod - user input or data returned from an outside API
 
 edit product
   zod edit product
-add to cart
-  zod add to cart
 cart checkout
-  zod checkout
 */

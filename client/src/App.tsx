@@ -9,7 +9,8 @@ import {
   getCart, 
   getProducts,
   deleteProduct,
-  addToCart, 
+  addToCart,
+  checkout 
 } from './services/shoppingCart.ts'
 
 
@@ -99,10 +100,19 @@ function App() {
     }
   }
 
+  const handleCheckout = async () => {
+    try {
+      await checkout();
+      setCart([]);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <>
       <div id="app">
-        <Header cart={cart}/>
+        <Header cart={cart} onCheckout={handleCheckout}/>
         <main>
           <ProductList
             products={products}
