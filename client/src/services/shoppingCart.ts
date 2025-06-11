@@ -6,11 +6,25 @@ const productSchema = z.object({
   _id: z.string(),
   title: z.string(),
   price: z.number(),
-  quantity: z.number()
+  quantity: z.number(),
+});
+
+const cartItemSchema = z.object({
+  _id: z.string(),
+  title: z.string(),
+  price: z.number(),
+  quantity: z.number(),
+  productId: z.string(),
 });
 
 const getProductResponseSchema = z.array(productSchema);
+const getCartResponseSchema = z.array(cartItemSchema);
 const createProductResponseSchema = productSchema;
+// const updatedProductResponseSchema = productSchema; // not used yet
+const addToCartResponseSchema = z.object({
+  product: productSchema,
+  item: cartItemSchema,
+});
 
 export const getProducts = async () => {
   try {
@@ -25,7 +39,7 @@ export const getProducts = async () => {
 export const getCart = async () => {
   try {
     const { data } = await axios.get<CartItem[]>('/api/cart');
-    return data
+    return getCartResponseSchema.parse(data);
   } catch (err) {
     console.log(err);
     throw err;
@@ -52,13 +66,26 @@ export const deleteProduct = async (productId: String) => {
   }
 }
 
+type AddToCartResponse = {
+  product: Product;
+  item: CartItem;
+}
+
+export const addToCart = async (productId: string) => {
+  try {
+    const { data } = await axios.post<AddToCartResponse>("/api/add-to-cart", { productId });
+    return addToCartResponseSchema.parse(data);
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
 
 /*
-Zod cart
+Zod - user input or data returned from an outside API
+
 edit product
   zod edit product
-delete product
-  zod delete - not necessary because there is no runtime input data to enforce
 add to cart
   zod add to cart
 cart checkout

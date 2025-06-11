@@ -92,14 +92,14 @@ const router = express.Router();
 const Product = require("../models/product");
 const CartItem = require("../models/cartItem");
 
-// done
+// done - get all the products
 router.get("/products", (req, res, next) => {
   Product.find({})
     .then((products) => res.json(products))
     .catch(next);
 });
 
-// done
+// done - create a new product
 router.post("/products", (req, res, next) => {
   const { title, price, quantity } = req.body;
   Product.create({ title, price, quantity })
@@ -107,6 +107,7 @@ router.post("/products", (req, res, next) => {
     .catch((err) => next(err));
 });
 
+// need to do - update a product
 router.put("/products/:id", (req, res) => {
   const productId = req.params.id;
   const { title, price, quantity } = req.body;
@@ -127,7 +128,7 @@ router.put("/products/:id", (req, res) => {
     });
 });
 
-// done
+// done - delete a product
 router.delete("/products/:id", (req, res, next) => {
   const productId = req.params.id;
   Product.findByIdAndDelete(productId)
@@ -137,6 +138,8 @@ router.delete("/products/:id", (req, res, next) => {
     .catch((err) => next(err));
 });
 
+// doing now - add a product to cart
+// needs to be passed the product id
 router.post("/add-to-cart", (req, res, next) => {
   const { productId } = req.body;
   Product.findById(productId)
@@ -185,13 +188,14 @@ router.post("/add-to-cart", (req, res, next) => {
     });
 });
 
+// need to do - checkout
 router.post("/checkout", (req, res) => {
   CartItem.deleteMany({}).then(() => {
     res.json();
   });
 });
 
-// done
+// done - get items in cart
 router.get("/cart", (req, res, next) => {
   CartItem.find({})
     .then((cartItems) => {
