@@ -8,7 +8,8 @@ import {
   createProduct, 
   getCart, 
   getProducts,
-  deleteProduct, 
+  deleteProduct,
+  addToCart, 
 } from './services/shoppingCart.ts'
 
 
@@ -55,12 +56,46 @@ function App() {
     }
   }
 
-  const handleDeleteProduct = async (productId: String) => {
+  const handleDeleteProduct = async (productId: string) => {
     try {
       await deleteProduct(productId);
       setProducts(prev => prev.filter(prod => prod._id !== productId));
     } catch (err) {
-      console.log(err)
+      console.log(err);
+    }
+  }
+
+  const handleAddToCart = async (productId: string) => {
+    const product = products.find(p => p._id === productId);
+    const existingItem = cart.find(item => item.productId === productId);
+    if (!product || product.quantity === 0) return;
+
+    try {
+      const { product: updatedProduct, item } = await addToCart(productId);
+      setProducts((prev) => {
+        return prev.map((product) => {
+          if (product._id === updatedProduct._id) {
+          return updatedProduct;
+        } else {
+          return product;
+        }
+        });
+      });
+      setCart((prev) => {
+        if (existingItem) {
+          return prev.map((cartItem) => {
+            if (cartItem.productId === productId) {
+              return item;
+            } else {
+              return cartItem;
+            }
+          }); 
+        } else {
+          return prev.concat(item);
+        }
+      });
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -69,7 +104,11 @@ function App() {
       <div id="app">
         <Header cart={cart}/>
         <main>
-          <ProductList products={products} onDeleteProduct={handleDeleteProduct}/>
+          <ProductList
+            products={products}
+            onDeleteProduct={handleDeleteProduct}
+            onAddToCart={handleAddToCart}
+          />
           <ToggleableAddForm onSubmitProduct={handleSubmitProduct}/>
         </main>
       </div>

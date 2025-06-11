@@ -138,8 +138,7 @@ router.delete("/products/:id", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-// doing now - add a product to cart
-// needs to be passed the product id
+// done - add a product to cart
 router.post("/add-to-cart", (req, res, next) => {
   const { productId } = req.body;
   Product.findById(productId)
