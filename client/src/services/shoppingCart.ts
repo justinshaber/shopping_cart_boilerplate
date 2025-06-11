@@ -20,7 +20,7 @@ const cartItemSchema = z.object({
 const getProductResponseSchema = z.array(productSchema);
 const getCartResponseSchema = z.array(cartItemSchema);
 const createProductResponseSchema = productSchema;
-// const updatedProductResponseSchema = productSchema; // not used yet
+const updatedProductResponseSchema = productSchema;
 const addToCartResponseSchema = z.object({
   product: productSchema,
   item: cartItemSchema,
@@ -50,6 +50,16 @@ export const createProduct = async (newProduct: NewProduct) => {
   try {
     const { data } = await axios.post('/api/products/', {...newProduct});
     return createProductResponseSchema.parse(data);
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+export const updateProduct = async (updatedProduct: Product) => {
+  try {
+    const { data } = await axios.put(`/api/products/${updatedProduct._id}`, {...updatedProduct});
+    return updatedProductResponseSchema.parse(data);
   } catch (err) {
     console.log(err);
     throw err;

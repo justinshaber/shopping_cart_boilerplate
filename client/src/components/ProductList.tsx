@@ -5,15 +5,17 @@ type ProductListProps = {
   products: Product[];
   onDeleteProduct: (productId: string) => void;
   onAddToCart: (productId: string) => void;
+  onUpdateProduct: (product: Product, callback?: () => void) => void;
 }
 
-export default function ProductList({ products, onDeleteProduct, onAddToCart }: ProductListProps) {
+export default function ProductList({ products, onDeleteProduct, onAddToCart, onUpdateProduct }: ProductListProps) {
   const productArray = products.map(product => {
     return <EditableProduct 
             key={product._id}
             product={product}
             onDeleteProduct={onDeleteProduct}
             onAddToCart={onAddToCart}
+            onUpdateProduct={onUpdateProduct}
             />
   });
 

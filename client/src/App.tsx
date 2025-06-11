@@ -10,7 +10,8 @@ import {
   getProducts,
   deleteProduct,
   addToCart,
-  checkout 
+  checkout, 
+  updateProduct
 } from './services/shoppingCart.ts'
 
 
@@ -49,6 +50,26 @@ function App() {
     try {
       const data = await createProduct(newProduct);
       setProducts(prev => prev.concat(data));
+      if (callback) {
+        callback(); 
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const handleUpdateProduct = async (updatedData: Product, callback?: () => void) => {
+    try {
+      const updatedProduct = await updateProduct(updatedData);
+      setProducts((prev) => {
+        return prev.map((product) => {
+          if (product._id === updatedProduct._id) {
+          return updatedProduct;
+        } else {
+          return product;
+        }
+        });
+      });
       if (callback) {
         callback(); 
       }
@@ -118,6 +139,7 @@ function App() {
             products={products}
             onDeleteProduct={handleDeleteProduct}
             onAddToCart={handleAddToCart}
+            onUpdateProduct={handleUpdateProduct}
           />
           <ToggleableAddForm onSubmitProduct={handleSubmitProduct}/>
         </main>
@@ -127,7 +149,6 @@ function App() {
 }
 
 export default App
-
 
 /*
   Zod - validate form data

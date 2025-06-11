@@ -7,9 +7,10 @@ interface EditableProductProps {
   product: Product;
   onDeleteProduct: (productId: string) => void;
   onAddToCart: (productId: string) => void;
+  onUpdateProduct: (product: Product, callback?: () => void) => void;
 }
 
-export default function EditableProduct({ product, onDeleteProduct, onAddToCart }: EditableProductProps) {
+export default function EditableProduct({ product, onDeleteProduct, onAddToCart, onUpdateProduct }: EditableProductProps) {
   const [showEditForm, setShowEditForm] = useState(false);
 
   const handleShowEditForm = () => {
@@ -25,7 +26,11 @@ export default function EditableProduct({ product, onDeleteProduct, onAddToCart 
         onDeleteProduct={onDeleteProduct}
         onAddToCart={onAddToCart}
       />
-      {showEditForm && <EditProductForm product={product} onCloseEditForm={handleShowEditForm}/>}
+      {showEditForm && <EditProductForm
+                          initialProduct={product}
+                          onCloseEditForm={handleShowEditForm}
+                          onUpdateProduct={onUpdateProduct}
+                        />}
     </>
   )
 }
